@@ -62,6 +62,10 @@ class RofiSkyss:
                 for route in stop['RouteDirections']:
                     routes.append(route)
 
+        if not routes:
+            self.rofi.error('The stop group is missing routes, sorry :(')
+            sys.exit(1)
+
         route_names = ['{} - {}'.format(route['PublicIdentifier'], route['DirectionName']) for route in routes]
         index, status = self.rofi.select('Route: ', route_names)
         if status == 0:
